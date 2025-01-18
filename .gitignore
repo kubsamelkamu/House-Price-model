@@ -1,0 +1,9 @@
+# ignored files and directories by git
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+house_price_env/
+.env
