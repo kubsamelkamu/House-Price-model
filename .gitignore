@@ -7,3 +7,5 @@ __pycache__/
 *.sqlite3
 house_price_env/
 .env
+data/
+models/
