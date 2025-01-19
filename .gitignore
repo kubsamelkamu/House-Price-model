@@ -8,4 +8,3 @@ __pycache__/
 house_price_env/
 .env
 data/
-models/
