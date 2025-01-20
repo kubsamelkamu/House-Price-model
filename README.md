@@ -13,4 +13,4 @@ This project aims to predict house prices based on various features using machin
 
 1. Run data preprocessing and model training scripts.
 2. Use the Flask application to serve predictions.
-3. Access the web interface through the React frontend.
+3. Access the web interface through the frontend.
