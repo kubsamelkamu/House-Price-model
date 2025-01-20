@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Price Prediction</title>
+</head>
+<body>
+    <h1>House Price Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="OverallQual">Overall Quality:</label>
+        <input type="text" id="OverallQual" name="OverallQual"><br><br>
+        <label for="GrLivArea">Above Ground Living Area (sq ft):</label>
+        <input type="text" id="GrLivArea" name="GrLivArea"><br><br>
+        <label for="GarageCars">Garage Cars:</label>
+        <input type="text" id="GarageCars" name="GarageCars"><br><br>
+        <label for="TotalBsmtSF">Total Basement Area (sq ft):</label>
+        <input type="text" id="TotalBsmtSF" name="TotalBsmtSF"><br><br>
+        <label for="1stFlrSF">1st Floor Area (sq ft):</label>
+        <input type="text" id="1stFlrSF" name="1stFlrSF"><br><br>
+        <label for="2ndFlrSF">2nd Floor Area (sq ft):</label>
+        <input type="text" id="2ndFlrSF" name="2ndFlrSF"><br><br>
+        <label for="3SsnPorch">3 Season Porch Area (sq ft):</label>
+        <input type="text" id="3SsnPorch" name="3SsnPorch"><br><br>
+        <label for="Alley_Pave">Alley Paved (yes/no):</label>
+        <select id="Alley_Pave" name="Alley_Pave">
+            <option value="1">Yes</option>
+            <option value="0">No</option>
+        </select><br><br>
+        <label for="BedroomAbvGr">Bedrooms Above Ground:</label>
+        <input type="text" id="BedroomAbvGr" name="BedroomAbvGr"><br><br>
+        <!-- Add more input fields for other features as needed -->
+        <input type="submit" value="Predict">
+    </form>
+    <div id="result"></div>
+</body>
+</html>

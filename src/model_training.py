@@ -34,6 +34,12 @@ if __name__ == "__main__":
     X = data.drop('SalePrice', axis=1)
     y = data['SalePrice']
 
+    # Ensure all feature names are strings
+    X.columns = X.columns.astype(str)
+
+    # Save the list of feature names
+    joblib.dump(X.columns, './models/features.pkl')
+
     # Split the data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
