@@ -4,34 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>House Price Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background: linear-gradient(to right, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, select {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            font-size: 1rem;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            background: #2575fc;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background: #6a11cb;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            input, select {
+                font-size: 0.9rem;
+            }
+
+            input[type="submit"] {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>House Price Prediction</h1>
-    <form action="/predict" method="post">
-        <label for="OverallQual">Overall Quality:</label>
-        <input type="text" id="OverallQual" name="OverallQual"><br><br>
-        <label for="GrLivArea">Above Ground Living Area (sq ft):</label>
-        <input type="text" id="GrLivArea" name="GrLivArea"><br><br>
-        <label for="GarageCars">Garage Cars:</label>
-        <input type="text" id="GarageCars" name="GarageCars"><br><br>
-        <label for="TotalBsmtSF">Total Basement Area (sq ft):</label>
-        <input type="text" id="TotalBsmtSF" name="TotalBsmtSF"><br><br>
-        <label for="1stFlrSF">1st Floor Area (sq ft):</label>
-        <input type="text" id="1stFlrSF" name="1stFlrSF"><br><br>
-        <label for="2ndFlrSF">2nd Floor Area (sq ft):</label>
-        <input type="text" id="2ndFlrSF" name="2ndFlrSF"><br><br>
-        <label for="3SsnPorch">3 Season Porch Area (sq ft):</label>
-        <input type="text" id="3SsnPorch" name="3SsnPorch"><br><br>
-        <label for="Alley_Pave">Alley Paved (yes/no):</label>
-        <select id="Alley_Pave" name="Alley_Pave">
-            <option value="1">Yes</option>
-            <option value="0">No</option>
-        </select><br><br>
-        <label for="BedroomAbvGr">Bedrooms Above Ground:</label>
-        <input type="text" id="BedroomAbvGr" name="BedroomAbvGr"><br><br>
-        <!-- Add more input fields for other features as needed -->
-        <input type="submit" value="Predict">
-    </form>
-    <div id="result"></div>
+    <div class="container">
+        <h1>House Price Prediction</h1>
+        <form action="/predict" method="post">
+            <label for="OverallQual">Overall Quality:</label>
+            <input type="number" id="OverallQual" name="OverallQual" min="1" max="10" required>
+
+            <label for="GrLivArea">Above Ground Living Area (sq ft):</label>
+            <input type="number" id="GrLivArea" name="GrLivArea" required>
+
+            <label for="GarageCars">Garage Cars:</label>
+            <input type="number" id="GarageCars" name="GarageCars" min="0" required>
+
+            <label for="TotalBsmtSF">Total Basement Area (sq ft):</label>
+            <input type="number" id="TotalBsmtSF" name="TotalBsmtSF" required>
+
+            <label for="1stFlrSF">1st Floor Area (sq ft):</label>
+            <input type="number" id="1stFlrSF" name="1stFlrSF" required>
+
+            <label for="2ndFlrSF">2nd Floor Area (sq ft):</label>
+            <input type="number" id="2ndFlrSF" name="2ndFlrSF" required>
+
+            <label for="3SsnPorch">3 Season Porch Area (sq ft):</label>
+            <input type="number" id="3SsnPorch" name="3SsnPorch">
+
+            <label for="Alley_Pave">Alley Paved (yes/no):</label>
+            <select id="Alley_Pave" name="Alley_Pave" required>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+
+            <label for="BedroomAbvGr">Bedrooms Above Ground:</label>
+            <input type="number" id="BedroomAbvGr" name="BedroomAbvGr" min="0" required>
+
+            <input type="submit" value="Predict">
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.querySelector('form').onsubmit = async function(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const resultDiv = document.getElementById('result');
+
+            resultDiv.innerHTML = "Calculating prediction... Please wait.";
+            const response = await fetch(form.action, {
+                method: form.method,
+                body: formData
+            });
+
+            const result = await response.json();
+            if (response.ok) {
+                resultDiv.innerHTML = `<strong>Predicted Price:</strong> ${result.prediction}`;
+            } else {
+                resultDiv.innerHTML = `<strong>Error:</strong> ${result.error || "Something went wrong"}`;
+            }
+        };
+    </script>
 </body>
 </html>
