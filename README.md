@@ -6,9 +6,15 @@ This project aims to predict house prices based on various features using machin
 
 1. Clone the repository.
 2. Create and activate a virtual environment.
+```bash
+   pip install virtualenv 
+   virtualenv house_price_env
+   house_price_env\Scripts\activate
+```
 3. Install the required packages:
    ```bash
-   pip install -r requirements.txt 
+      pip install -r requirements.txt 
+   ```
 ## Usage
 
 1. Run data preprocessing and model training scripts.
